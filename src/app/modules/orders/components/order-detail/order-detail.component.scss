@@ -1,0 +1,55 @@
+.order-detail {
+  &__container {
+    @apply container mx-auto px-4 py-8;
+  }
+
+  &__card {
+    @apply bg-white rounded-lg shadow-md p-6;
+  }
+
+  &__title {
+    @apply text-2xl font-bold mb-4;
+  }
+
+  &__grid {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-6;
+  }
+
+  &__section {
+    &-title {
+      @apply text-lg font-semibold mb-2;
+    }
+  }
+
+  &__items {
+    @apply space-y-4;
+  }
+
+  &__item {
+    @apply flex items-center space-x-4 p-4 bg-gray-50 rounded;
+
+    &-image {
+      @apply w-20 h-20 object-cover rounded;
+    }
+
+    &-content {
+      @apply flex-1;
+    }
+
+    &-name {
+      @apply font-medium;
+    }
+
+    &-quantity {
+      @apply text-gray-600;
+    }
+
+    &-price {
+      @apply font-medium;
+    }
+
+    &-total {
+      @apply text-gray-600;
+    }
+  }
+} 

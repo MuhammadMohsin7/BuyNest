@@ -1,0 +1,61 @@
+.order-list {
+  &__container {
+    @apply container mx-auto p-4;
+  }
+
+  &__title {
+    @apply text-2xl font-bold mb-4;
+  }
+
+  &__grid {
+    @apply grid gap-4;
+  }
+
+  &__card {
+    @apply border rounded p-4;
+  }
+
+  &__header {
+    @apply flex justify-between items-center mb-2;
+  }
+
+  &__order-number {
+    @apply font-bold;
+  }
+
+  &__status {
+    @apply px-2 py-1 rounded;
+  }
+
+  &__details {
+    @apply text-gray-600;
+  }
+
+  &__total {
+    @apply font-medium;
+  }
+
+  &__date {
+    @apply text-sm;
+  }
+
+  &__items {
+    @apply mt-4;
+  }
+
+  &__items-title {
+    @apply font-semibold mb-2;
+  }
+
+  &__item {
+    @apply flex justify-between items-center py-1;
+  }
+
+  &__item-name {
+    @apply text-gray-700;
+  }
+
+  &__item-quantity {
+    @apply text-gray-600;
+  }
+} 

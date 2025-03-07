@@ -1,0 +1,17 @@
+<div class="product-card">
+  <img [src]="product.imageUrl" [alt]="product.name" class="product-card__image">
+  <div class="product-card__content">
+    <h3 class="product-card__title">{{ product.name }}</h3>
+    <p class="product-card__description">{{ product.description }}</p>
+    <div class="product-card__footer">
+      <span class="product-card__price">{{ product.price | currency }}</span>
+      <div class="product-card__rating">
+        <span class="product-card__star">★</span>
+        <span class="product-card__rating-value">{{ product.rating }}</span>
+      </div>
+    </div>
+    <button (click)="viewDetails()" class="product-card__button">
+      View Details
+    </button>
+  </div>
+</div> 

@@ -1,0 +1,50 @@
+<nav class="nav">
+  <div class="nav__container">
+    <a (click)="navigateTo('/')" class="nav__logo">
+      <i class="fas fa-store nav__logo-icon"></i>
+      <span class="nav__logo-text">Store</span>
+    </a>
+    
+    <div class="nav__links">
+      <a (click)="navigateTo('/home')" class="nav__link">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </a>
+      <a (click)="navigateTo('/products')" class="nav__link">
+        <i class="fas fa-box"></i>
+        <span>Products</span>
+      </a>
+      <a (click)="navigateTo('/contact')" class="nav__link">
+        <i class="fas fa-envelope"></i>
+        <span>Contact</span>
+      </a>
+
+      <a (click)="navigateTo('/cart')" class="nav__link">
+        <i class="fas fa-shopping-cart"></i>
+        <span>Cart</span>
+        <span class="nav__badge" *ngIf="cartCount$ | async as count">{{ count }}</span>
+      </a>
+      <a (click)="navigateTo('/wishlist')" class="nav__link">
+        <i class="fas fa-heart"></i>
+        <span>Wishlist</span>
+        <span class="nav__badge" *ngIf="wishlistCount$ | async as count">{{ count }}</span>
+      </a>
+      
+      <ng-container *ngIf="isAuthenticated$ | async">
+        <a (click)="navigateTo('/orders')" class="nav__link">
+          <i class="fas fa-shopping-bag"></i>
+          <span>Orders</span>
+        </a>
+      </ng-container>
+    </div>
+
+    <div class="nav__actions">
+      <ng-container *ngIf="isAuthenticated$ | async">
+        <button (click)="logout()" class="nav__button">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Logout</span>
+        </button>
+      </ng-container>
+    </div>
+  </div>
+</nav> 

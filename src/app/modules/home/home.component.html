@@ -1,0 +1,147 @@
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero__container">
+    <div class="hero__content">
+      <h1 class="hero__title">Welcome to Our Store</h1>
+      <p class="hero__subtitle">Discover amazing products at great prices</p>
+      <a (click)="navigateTo('/products')" class="hero__button">
+        Shop Now
+        <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+    <div class="hero__image">
+      <img src="assets/images/hero-image.jpg" alt="Hero Image">
+    </div>
+  </div>
+</section>
+
+<!-- Featured Products Section -->
+<section class="featured">
+  <div class="featured__container">
+    <h2 class="section-title">Featured Products</h2>
+    <div class="featured__grid">
+      <div class="featured__item" *ngFor="let product of featuredProducts">
+        <div class="featured__image">
+          <img [src]="product.imageUrl" [alt]="product.name">
+          <div class="featured__overlay">
+            <button (click)="addToCart(product)" class="featured__button">
+              <i class="fas fa-shopping-cart"></i>
+              Add to Cart
+            </button>
+          </div>
+        </div>
+        <div class="featured__details">
+          <h3 class="featured__name">{{ product.name }}</h3>
+          <p class="featured__price">${{ product.price }}</p>
+          <div class="featured__rating">
+            <i class="fas fa-star" *ngFor="let star of [1,2,3,4,5]"></i>
+            <span>({{ product.rating }})</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Categories Section -->
+<section class="categories">
+  <div class="categories__container">
+    <h2 class="section-title">Shop by Category</h2>
+    <div class="categories__grid">
+      <div class="categories__item" *ngFor="let category of categories">
+        <img [src]="category.image" [alt]="category.name">
+        <div class="categories__content">
+          <h3 class="categories__name">{{ category.name }}</h3>
+          <a (click)="navigateTo('/products?category=' + category.id)" class="categories__link">
+            Explore
+            <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Benefits Section -->
+<section class="benefits">
+  <div class="benefits__container">
+    <div class="benefits__grid">
+      <div class="benefits__item">
+        <i class="fas fa-truck benefits__icon"></i>
+        <h3 class="benefits__title">Free Shipping</h3>
+        <p class="benefits__text">On orders over $50</p>
+      </div>
+      <div class="benefits__item">
+        <i class="fas fa-undo benefits__icon"></i>
+        <h3 class="benefits__title">Easy Returns</h3>
+        <p class="benefits__text">30-day return policy</p>
+      </div>
+      <div class="benefits__item">
+        <i class="fas fa-lock benefits__icon"></i>
+        <h3 class="benefits__title">Secure Payment</h3>
+        <p class="benefits__text">100% secure checkout</p>
+      </div>
+      <div class="benefits__item">
+        <i class="fas fa-headset benefits__icon"></i>
+        <h3 class="benefits__title">24/7 Support</h3>
+        <p class="benefits__text">Always here to help</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Newsletter Section -->
+<section class="newsletter">
+  <div class="newsletter__container">
+    <div class="newsletter__content">
+      <h2 class="newsletter__title">Subscribe to Our Newsletter</h2>
+      <p class="newsletter__text">Get the latest updates and exclusive offers</p>
+      <form (ngSubmit)="subscribeNewsletter()" class="newsletter__form">
+        <input 
+          type="email" 
+          [(ngModel)]="email" 
+          name="email" 
+          class="newsletter__input"
+          placeholder="Enter your email">
+        <button type="submit" class="newsletter__button">
+          Subscribe
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials">
+  <div class="testimonials__container">
+    <h2 class="section-title">What Our Customers Say</h2>
+    <div class="testimonials__grid">
+      <div class="testimonials__item" *ngFor="let testimonial of testimonials">
+        <div class="testimonials__rating">
+          <i class="fas fa-star" *ngFor="let star of [1,2,3,4,5]"></i>
+        </div>
+        <p class="testimonials__text">{{ testimonial.text }}</p>
+        <div class="testimonials__author">
+          <img [src]="testimonial.image" [alt]="testimonial.name" class="testimonials__image">
+          <div class="testimonials__info">
+            <h4 class="testimonials__name">{{ testimonial.name }}</h4>
+            <p class="testimonials__role">{{ testimonial.role }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Brands Section -->
+<section class="brands">
+  <div class="brands__container">
+    <h2 class="section-title">Our Trusted Brands</h2>
+    <div class="brands__grid">
+      <div class="brands__item" *ngFor="let brand of brands">
+        <img [src]="brand.logo" [alt]="brand.name">
+      </div>
+    </div>
+  </div>
+</section> 
