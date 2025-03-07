@@ -16,7 +16,7 @@
         <div class="products__sort">
           <select 
             [(ngModel)]="selectedSort" 
-            (change)="sortProducts(($event.target as HTMLSelectElement).value)"
+            (change)="sortProducts($any($event.target).value)"
             class="products__sort-select">
             <option *ngFor="let option of sortOptions" [value]="option.value">
               {{ option.label }}
