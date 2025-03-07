@@ -7,28 +7,54 @@ import { isPlatformBrowser } from '@angular/common';
 export class StorageService {
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
-  setItem(key: string, value: string): void {
+  setItem(key: string, value: any): void {
     if (isPlatformBrowser(this.platformId)) {
-      localStorage.setItem(key, value);
+      try {
+        const serializedValue = typeof value === 'string' ? value : JSON.stringify(value);
+        localStorage.setItem(key, serializedValue);
+      } catch (error) {
+        console.error('Error saving to localStorage:', error);
+      }
     }
   }
 
-  getItem(key: string): string | null {
+  getItem(key: string): any {
     if (isPlatformBrowser(this.platformId)) {
-      return localStorage.getItem(key);
+      try {
+        const item = localStorage.getItem(key);
+        if (!item) return null;
+        
+        // Try to parse as JSON, if it fails return the original string
+        try {
+          return JSON.parse(item);
+        } catch {
+          return item;
+        }
+      } catch (error) {
+        console.error('Error reading from localStorage:', error);
+        return null;
+      }
     }
     return null;
   }
 
   removeItem(key: string): void {
     if (isPlatformBrowser(this.platformId)) {
-      localStorage.removeItem(key);
+      try {
+        localStorage.removeItem(key);
+      } catch (error) {
+        console.error('Error removing from localStorage:', error);
+      }
     }
   }
 
   clear(): void {
     if (isPlatformBrowser(this.platformId)) {
-      localStorage.clear();
+      try {
+        localStorage.clear();
+      } catch (error) {
+        console.error('Error clearing localStorage:', error);
+      }
     }
   }
 } 

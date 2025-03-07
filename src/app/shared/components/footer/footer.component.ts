@@ -2,40 +2,51 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-footer',
-  template: `
-    <footer class="bg-gray-800 text-white mt-8">
-      <div class="container mx-auto px-4 py-8">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div>
-            <h3 class="text-xl font-bold mb-4">Cool Shades</h3>
-            <p class="text-gray-400">
-              Your one-stop shop for stylish sunglasses and eyewear.
-            </p>
-          </div>
-          <div>
-            <h3 class="text-xl font-bold mb-4">Quick Links</h3>
-            <ul class="space-y-2">
-              <li><a routerLink="/products" class="text-gray-400 hover:text-white">Products</a></li>
-              <li><a routerLink="/contact" class="text-gray-400 hover:text-white">Contact</a></li>
-              <li><a routerLink="/about" class="text-gray-400 hover:text-white">About Us</a></li>
-            </ul>
-          </div>
-          <div>
-            <h3 class="text-xl font-bold mb-4">Contact Us</h3>
-            <ul class="space-y-2 text-gray-400">
-              <li>Email: info&#64;coolshades.com</li>
-              <li>Phone: (555) 123-4567</li>
-              <li>Address: 123 Sunglass Street, Style City</li>
-            </ul>
-          </div>
-        </div>
-        <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-          <p>&copy; {{ currentYear }} Cool Shades. All rights reserved.</p>
-        </div>
-      </div>
-    </footer>
-  `
+  templateUrl: './footer.component.html',
+  styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent {
   currentYear = new Date().getFullYear();
+  
+  footerLinks = {
+    shop: [
+      { name: 'Electronics', path: '/products?category=electronics' },
+      { name: 'Fashion', path: '/products?category=fashion' },
+      { name: 'Home & Living', path: '/products?category=home-living' },
+      { name: 'Sports', path: '/products?category=sports' }
+    ],
+    support: [
+      { name: 'Contact Us', path: '/contact' },
+      { name: 'FAQs', path: '/faqs' },
+      { name: 'Shipping Policy', path: '/shipping' },
+      { name: 'Returns', path: '/returns' }
+    ],
+    about: [
+      { name: 'Our Story', path: '/about' },
+      { name: 'Careers', path: '/careers' },
+      { name: 'Press', path: '/press' },
+      { name: 'Blog', path: '/blog' }
+    ],
+    legal: [
+      { name: 'Privacy Policy', path: '/privacy' },
+      { name: 'Terms of Service', path: '/terms' },
+      { name: 'Cookie Policy', path: '/cookies' },
+      { name: 'Sitemap', path: '/sitemap' }
+    ]
+  };
+
+  socialLinks = [
+    { name: 'Facebook', icon: 'fab fa-facebook-f', url: 'https://facebook.com' },
+    { name: 'Twitter', icon: 'fab fa-twitter', url: 'https://twitter.com' },
+    { name: 'Instagram', icon: 'fab fa-instagram', url: 'https://instagram.com' },
+    { name: 'LinkedIn', icon: 'fab fa-linkedin-in', url: 'https://linkedin.com' },
+    { name: 'YouTube', icon: 'fab fa-youtube', url: 'https://youtube.com' }
+  ];
+
+  contactInfo = {
+    address: '123 Store Street, Shopping District, City, Country',
+    phone: '+1 (555) 123-4567',
+    email: 'support@store.com',
+    hours: 'Mon-Fri: 9:00 AM - 8:00 PM'
+  };
 } 

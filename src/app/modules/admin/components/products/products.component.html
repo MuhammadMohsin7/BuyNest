@@ -1,0 +1,178 @@
+<div class="products">
+  <!-- Header Section -->
+  <div class="products__header">
+    <h1 class="products__title">Products Management</h1>
+    <button class="products__add-btn" (click)="openAddProductModal()">
+      <i class="fas fa-plus"></i>
+      Add New Product
+    </button>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="error" class="products__error">
+    {{ error }}
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="products__loading">
+    <i class="fas fa-spinner fa-spin"></i>
+    Loading products...
+  </div>
+
+  <!-- Products Grid -->
+  <div *ngIf="!loading && !error" class="products__grid">
+    <div *ngFor="let product of products" class="products__card">
+      <div class="products__card-image">
+        <img [src]="product.image" [alt]="product.name">
+        <div class="products__card-actions">
+          <button class="products__action-btn" (click)="openEditProductModal(product)">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button class="products__action-btn products__action-btn--delete" (click)="deleteProduct(product.id)">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      </div>
+      <div class="products__card-content">
+        <h3 class="products__card-title">{{ product.name }}</h3>
+        <p class="products__card-category">{{ product.category }}</p>
+        <p class="products__card-price">${{ product.price }}</p>
+        <div class="products__card-stock">
+          <span class="products__stock-label">Stock:</span>
+          <span class="products__stock-value" [class.low]="product.stock < 10">
+            {{ product.stock }}
+          </span>
+        </div>
+        <div class="products__card-rating">
+          <i class="fas fa-star"></i>
+          <span>{{ product.rating }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Modal -->
+  <div *ngIf="selectedProduct !== null || !isEditing" class="products__modal">
+    <div class="products__modal-content">
+      <div class="products__modal-header">
+        <h2 class="products__modal-title">{{ isEditing ? 'Edit Product' : 'Add New Product' }}</h2>
+        <button class="products__modal-close" (click)="selectedProduct = null">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="products__form">
+        <div class="products__form-group">
+          <label for="name" class="products__form-label">Product Name</label>
+          <input
+            type="text"
+            id="name"
+            formControlName="name"
+            class="products__form-input"
+            placeholder="Enter product name"
+          >
+          <div *ngIf="productForm.get('name')?.touched && productForm.get('name')?.invalid" class="products__form-error">
+            <span *ngIf="productForm.get('name')?.errors?.['required']">Name is required</span>
+            <span *ngIf="productForm.get('name')?.errors?.['minlength']">Name must be at least 3 characters</span>
+          </div>
+        </div>
+
+        <div class="products__form-group">
+          <label for="description" class="products__form-label">Description</label>
+          <textarea
+            id="description"
+            formControlName="description"
+            class="products__form-textarea"
+            placeholder="Enter product description"
+            rows="4"
+          ></textarea>
+          <div *ngIf="productForm.get('description')?.touched && productForm.get('description')?.invalid" class="products__form-error">
+            <span *ngIf="productForm.get('description')?.errors?.['required']">Description is required</span>
+            <span *ngIf="productForm.get('description')?.errors?.['minlength']">Description must be at least 10 characters</span>
+          </div>
+        </div>
+
+        <div class="products__form-row">
+          <div class="products__form-group">
+            <label for="price" class="products__form-label">Price</label>
+            <input
+              type="number"
+              id="price"
+              formControlName="price"
+              class="products__form-input"
+              placeholder="Enter price"
+              min="0"
+              step="0.01"
+            >
+            <div *ngIf="productForm.get('price')?.touched && productForm.get('price')?.invalid" class="products__form-error">
+              <span *ngIf="productForm.get('price')?.errors?.['required']">Price is required</span>
+              <span *ngIf="productForm.get('price')?.errors?.['min']">Price must be greater than 0</span>
+            </div>
+          </div>
+
+          <div class="products__form-group">
+            <label for="category" class="products__form-label">Category</label>
+            <select
+              id="category"
+              formControlName="category"
+              class="products__form-select"
+            >
+              <option value="">Select a category</option>
+              <option *ngFor="let category of categories" [value]="category">
+                {{ category }}
+              </option>
+            </select>
+            <div *ngIf="productForm.get('category')?.touched && productForm.get('category')?.invalid" class="products__form-error">
+              <span *ngIf="productForm.get('category')?.errors?.['required']">Category is required</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="products__form-row">
+          <div class="products__form-group">
+            <label for="stock" class="products__form-label">Stock</label>
+            <input
+              type="number"
+              id="stock"
+              formControlName="stock"
+              class="products__form-input"
+              placeholder="Enter stock quantity"
+              min="0"
+            >
+            <div *ngIf="productForm.get('stock')?.touched && productForm.get('stock')?.invalid" class="products__form-error">
+              <span *ngIf="productForm.get('stock')?.errors?.['required']">Stock is required</span>
+              <span *ngIf="productForm.get('stock')?.errors?.['min']">Stock must be greater than 0</span>
+            </div>
+          </div>
+
+          <div class="products__form-group">
+            <label for="image" class="products__form-label">Product Image</label>
+            <div class="products__image-upload">
+              <input
+                type="file"
+                id="image"
+                (change)="onImageUpload($event)"
+                class="products__image-input"
+                accept="image/*"
+              >
+              <div class="products__image-preview" *ngIf="productForm.get('image')?.value">
+                <img [src]="productForm.get('image')?.value" alt="Product preview">
+              </div>
+            </div>
+            <div *ngIf="productForm.get('image')?.touched && productForm.get('image')?.invalid" class="products__form-error">
+              <span *ngIf="productForm.get('image')?.errors?.['required']">Image is required</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="products__form-actions">
+          <button type="button" class="products__cancel-btn" (click)="selectedProduct = null">
+            Cancel
+          </button>
+          <button type="submit" class="products__submit-btn" [disabled]="productForm.invalid">
+            {{ isEditing ? 'Update Product' : 'Add Product' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div> 

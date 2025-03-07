@@ -7,6 +7,7 @@ import { SharedModule } from './shared/shared.module';
   standalone: true,
   imports: [SharedModule, RouterOutlet],
   template: `
+    <app-loading></app-loading>
     <app-nav></app-nav>
     <main>
       <router-outlet></router-outlet>

@@ -1,68 +1,59 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-admin-dashboard',
-  template: `
-    <div class="admin-dashboard">
-      <nav class="admin-dashboard__nav">
-        <div class="admin-dashboard__nav-brand">Admin Panel</div>
-        <div class="admin-dashboard__nav-links">
-          <a routerLink="products" routerLinkActive="admin-dashboard__nav-link--active" 
-             class="admin-dashboard__nav-link">Products</a>
-          <a routerLink="orders" routerLinkActive="admin-dashboard__nav-link--active" 
-             class="admin-dashboard__nav-link">Orders</a>
-        </div>
-        <button (click)="logout()" class="admin-dashboard__logout-btn">Logout</button>
-      </nav>
-      <main class="admin-dashboard__content">
-        <router-outlet></router-outlet>
-      </main>
-    </div>
-  `,
-  styles: [`
-    .admin-dashboard {
-      @apply min-h-screen bg-gray-100;
-
-      &__nav {
-        @apply bg-white shadow-md flex items-center justify-between px-6 py-4;
-      }
-
-      &__nav-brand {
-        @apply text-xl font-bold text-gray-800;
-      }
-
-      &__nav-links {
-        @apply flex space-x-6;
-      }
-
-      &__nav-link {
-        @apply text-gray-600 hover:text-gray-900 transition-colors;
-
-        &--active {
-          @apply text-blue-600 font-semibold;
-        }
-      }
-
-      &__logout-btn {
-        @apply bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors;
-      }
-
-      &__content {
-        @apply container mx-auto px-4 py-8;
-      }
-    }
-  `]
+  templateUrl: './admin-dashboard.component.html',
+  styleUrls: ['./admin-dashboard.component.scss']
 })
-export class AdminDashboardComponent {
+export class AdminDashboardComponent implements OnInit {
+  stats = {
+    totalProducts: 0,
+    totalOrders: 0,
+    totalUsers: 0,
+    totalRevenue: 0
+  };
+
+  recentOrders = [
+    {
+      id: 1,
+      customer: 'John Doe',
+      date: '2024-03-07',
+      total: 299.99,
+      status: 'Delivered'
+    },
+    {
+      id: 2,
+      customer: 'Jane Smith',
+      date: '2024-03-06',
+      total: 149.99,
+      status: 'Processing'
+    },
+    {
+      id: 3,
+      customer: 'Mike Johnson',
+      date: '2024-03-05',
+      total: 199.99,
+      status: 'Shipped'
+    }
+  ];
+
   constructor(
-    private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
+
+  ngOnInit(): void {
+    // TODO: Load dashboard stats from service
+  }
+
+  navigateTo(path: string): void {
+    this.router.navigate(['/admin', path]);
+  }
 
   logout(): void {
     this.authService.logout();
-    this.router.navigate(['/admin/login']);
+    this.router.navigate(['/auth/login']);
   }
 } 

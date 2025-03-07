@@ -1,0 +1,17 @@
+<div *ngIf="loading$ | async" class="loading-overlay">
+  <div class="loading-content" [class.admin]="isAdmin$ | async">
+    <div class="loading-spinner">
+      <i class="fas fa-spinner fa-spin"></i>
+    </div>
+    <div class="loading-text">
+      <ng-container *ngIf="isAdmin$ | async">
+        <h2>Admin Panel Loading</h2>
+        <p>Please wait while we prepare your dashboard...</p>
+      </ng-container>
+      <ng-container *ngIf="!(isAdmin$ | async)">
+        <h2>Welcome Back!</h2>
+        <p>Loading your shopping experience...</p>
+      </ng-container>
+    </div>
+  </div>
+</div> 

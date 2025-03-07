@@ -1,0 +1,143 @@
+<div class="admin-dashboard">
+  <!-- Sidebar -->
+  <aside class="admin-dashboard__sidebar">
+    <div class="admin-dashboard__sidebar-header">
+      <i class="fas fa-store admin-dashboard__sidebar-icon"></i>
+      <span class="admin-dashboard__sidebar-title">Admin Panel</span>
+    </div>
+    <nav class="admin-dashboard__sidebar-nav">
+      <a (click)="navigateTo('dashboard')" class="admin-dashboard__sidebar-link" [class.active]="true">
+        <i class="fas fa-chart-line"></i>
+        <span>Dashboard</span>
+      </a>
+      <a (click)="navigateTo('products')" class="admin-dashboard__sidebar-link">
+        <i class="fas fa-box"></i>
+        <span>Products</span>
+      </a>
+      <a (click)="navigateTo('orders')" class="admin-dashboard__sidebar-link">
+        <i class="fas fa-shopping-cart"></i>
+        <span>Orders</span>
+      </a>
+      <a (click)="navigateTo('users')" class="admin-dashboard__sidebar-link">
+        <i class="fas fa-users"></i>
+        <span>Users</span>
+      </a>
+      <a (click)="navigateTo('settings')" class="admin-dashboard__sidebar-link">
+        <i class="fas fa-cog"></i>
+        <span>Settings</span>
+      </a>
+    </nav>
+    <div class="admin-dashboard__sidebar-footer">
+      <button (click)="logout()" class="admin-dashboard__logout-btn">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="admin-dashboard__main">
+    <!-- Top Bar -->
+    <header class="admin-dashboard__header">
+      <div class="admin-dashboard__header-search">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Search..." class="admin-dashboard__search-input">
+      </div>
+      <div class="admin-dashboard__header-actions">
+        <button class="admin-dashboard__notification-btn">
+          <i class="fas fa-bell"></i>
+          <span class="admin-dashboard__notification-badge">3</span>
+        </button>
+        <div class="admin-dashboard__user-menu">
+          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" 
+               alt="Admin" 
+               class="admin-dashboard__user-avatar">
+          <span class="admin-dashboard__user-name">Admin User</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Dashboard Content -->
+    <div class="admin-dashboard__content">
+      <!-- Stats Cards -->
+      <div class="admin-dashboard__stats-grid">
+        <div class="admin-dashboard__stat-card">
+          <div class="admin-dashboard__stat-icon">
+            <i class="fas fa-box"></i>
+          </div>
+          <div class="admin-dashboard__stat-info">
+            <h3 class="admin-dashboard__stat-title">Total Products</h3>
+            <p class="admin-dashboard__stat-value">{{ stats.totalProducts }}</p>
+          </div>
+        </div>
+        <div class="admin-dashboard__stat-card">
+          <div class="admin-dashboard__stat-icon">
+            <i class="fas fa-shopping-cart"></i>
+          </div>
+          <div class="admin-dashboard__stat-info">
+            <h3 class="admin-dashboard__stat-title">Total Orders</h3>
+            <p class="admin-dashboard__stat-value">{{ stats.totalOrders }}</p>
+          </div>
+        </div>
+        <div class="admin-dashboard__stat-card">
+          <div class="admin-dashboard__stat-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <div class="admin-dashboard__stat-info">
+            <h3 class="admin-dashboard__stat-title">Total Users</h3>
+            <p class="admin-dashboard__stat-value">{{ stats.totalUsers }}</p>
+          </div>
+        </div>
+        <div class="admin-dashboard__stat-card">
+          <div class="admin-dashboard__stat-icon">
+            <i class="fas fa-dollar-sign"></i>
+          </div>
+          <div class="admin-dashboard__stat-info">
+            <h3 class="admin-dashboard__stat-title">Total Revenue</h3>
+            <p class="admin-dashboard__stat-value">${{ stats.totalRevenue }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Orders -->
+      <div class="admin-dashboard__section">
+        <div class="admin-dashboard__section-header">
+          <h2 class="admin-dashboard__section-title">Recent Orders</h2>
+          <a (click)="navigateTo('orders')" class="admin-dashboard__section-link">View All</a>
+        </div>
+        <div class="admin-dashboard__table-container">
+          <table class="admin-dashboard__table">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Date</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let order of recentOrders">
+                <td>#{{ order.id }}</td>
+                <td>{{ order.customer }}</td>
+                <td>{{ order.date }}</td>
+                <td>${{ order.total }}</td>
+                <td>
+                  <span class="admin-dashboard__status-badge" [class]="'admin-dashboard__status-badge--' + order.status.toLowerCase()">
+                    {{ order.status }}
+                  </span>
+                </td>
+                <td>
+                  <button class="admin-dashboard__action-btn">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+</div> 

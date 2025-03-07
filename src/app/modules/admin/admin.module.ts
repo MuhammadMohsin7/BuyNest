@@ -1,40 +1,34 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
+// Components
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
-import { AdminProductsComponent } from './components/admin-products/admin-products.component';
-// import { AdminOrdersComponent } from './components/admin-orders/admin-orders.component';
-import { AdminLoginComponent } from './components/admin-login/admin-login.component';
-import { SharedModule } from '../../shared/shared.module';
+import { ProductsComponent } from './components/products/products.component';
 
 const routes: Routes = [
-  { path: 'login', component: AdminLoginComponent },
-  { 
-    path: 'dashboard', 
-    component: AdminDashboardComponent,
-    children: [
-      { path: 'products', component: AdminProductsComponent },
-      // { path: 'orders', component: AdminOrdersComponent },
-      { path: '', redirectTo: 'products', pathMatch: 'full' }
-    ]
+  {
+    path: '',
+    component: AdminDashboardComponent
   },
-  { path: '', redirectTo: 'login', pathMatch: 'full' }
+  {
+    path: 'products',
+    component: ProductsComponent
+  }
 ];
 
 @NgModule({
   declarations: [
     AdminDashboardComponent,
-    AdminProductsComponent,
-    // AdminOrdersComponent,
-    AdminLoginComponent
+    ProductsComponent
   ],
   imports: [
     CommonModule,
-    SharedModule,
-    FormsModule,
+    RouterModule.forChild(routes),
     ReactiveFormsModule,
-    RouterModule.forChild(routes)
+    HttpClientModule
   ]
 })
 export class AdminModule { } 

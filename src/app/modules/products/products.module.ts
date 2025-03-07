@@ -5,6 +5,7 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { ProductService } from './services/product.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { path: '', component: ProductListComponent },
@@ -19,6 +20,8 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
     RouterModule.forChild(routes)
   ],
   exports: [ProductCardComponent],

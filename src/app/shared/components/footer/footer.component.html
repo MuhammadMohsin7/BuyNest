@@ -1,0 +1,94 @@
+<footer class="footer">
+  <div class="footer__main">
+    <div class="container">
+      <div class="footer__grid">
+        <!-- About Section -->
+        <div class="footer__section">
+          <h3 class="footer__title">About Our Store</h3>
+          <p class="footer__text">
+            Your one-stop destination for premium products across electronics, fashion, home & living, and sports categories.
+            We offer the best brands at competitive prices with exceptional customer service.
+          </p>
+          <div class="footer__social">
+            <a *ngFor="let social of socialLinks" 
+               [href]="social.url" 
+               target="_blank" 
+               class="footer__social-link"
+               [title]="social.name">
+              <i [class]="social.icon"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer__section">
+          <h3 class="footer__title">Shop</h3>
+          <ul class="footer__list">
+            <li *ngFor="let link of footerLinks.shop">
+              <a [routerLink]="link.path" class="footer__link">{{ link.name }}</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Support -->
+        <div class="footer__section">
+          <h3 class="footer__title">Support</h3>
+          <ul class="footer__list">
+            <li *ngFor="let link of footerLinks.support">
+              <a [routerLink]="link.path" class="footer__link">{{ link.name }}</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- About -->
+        <div class="footer__section">
+          <h3 class="footer__title">About</h3>
+          <ul class="footer__list">
+            <li *ngFor="let link of footerLinks.about">
+              <a [routerLink]="link.path" class="footer__link">{{ link.name }}</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="footer__section">
+          <h3 class="footer__title">Contact Us</h3>
+          <ul class="footer__contact">
+            <li>
+              <i class="fas fa-map-marker-alt"></i>
+              <span>{{ contactInfo.address }}</span>
+            </li>
+            <li>
+              <i class="fas fa-phone"></i>
+              <span>{{ contactInfo.phone }}</span>
+            </li>
+            <li>
+              <i class="fas fa-envelope"></i>
+              <span>{{ contactInfo.email }}</span>
+            </li>
+            <li>
+              <i class="fas fa-clock"></i>
+              <span>{{ contactInfo.hours }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Bar -->
+  <div class="footer__bottom">
+    <div class="container">
+      <div class="footer__bottom-content">
+        <p class="footer__copyright">
+          &copy; {{ currentYear }} Your Store Name. All rights reserved.
+        </p>
+        <ul class="footer__legal">
+          <li *ngFor="let link of footerLinks.legal">
+            <a [routerLink]="link.path" class="footer__link">{{ link.name }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer> 

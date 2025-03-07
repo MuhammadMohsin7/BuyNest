@@ -1,59 +1,61 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService, Product } from '../../services/product.service';
+import { Product } from '../../services/product.service';
+import { CartService } from '../../../../shared/services/cart.service';
 
 @Component({
   selector: 'app-product-list',
-  template: `
-    <div class="product-list">
-      <div class="product-list__container">
-        <h1 class="product-list__title">Our Products</h1>
-        <div class="product-list__grid">
-          <app-product-card
-            *ngFor="let product of products"
-            [product]="product"
-            class="product-list__card">
-          </app-product-card>
-        </div>
-      </div>
-    </div>
-  `,
-  styles: [`
-    .product-list {
-      &__container {
-        @apply container mx-auto px-4 py-8;
-      }
-
-      &__title {
-        @apply text-3xl font-bold mb-8;
-      }
-
-      &__grid {
-        @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
-      }
-
-      &__card {
-        @apply h-full;
-      }
-    }
-  `]
+  templateUrl: './product-list.component.html',
+  styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
+  filteredProducts: Product[] = [];
+  categories: string[] = [];
+  selectedCategory: string = 'all';
+  sortOptions = [
+    { value: 'featured', label: 'Featured' },
+    { value: 'price-low', label: 'Price: Low to High' },
+    { value: 'price-high', label: 'Price: High to Low' },
+    { value: 'newest', label: 'Newest First' }
+  ];
+  selectedSort: string = 'featured';
+  loading: boolean = true;
 
-  constructor(private productService: ProductService) {}
+  constructor(private cartService: CartService) {}
 
   ngOnInit(): void {
-    this.loadProducts();
+    // TODO: Load products from service
+    this.loading = false;
   }
 
-  private loadProducts(): void {
-    this.productService.getAllProducts().subscribe({
-      next: (products) => {
-        this.products = products;
-      },
-      error: (error) => {
-        console.error('Error loading products:', error);
-      }
-    });
+  filterByCategory(category: string): void {
+    this.selectedCategory = category;
+    if (category === 'all') {
+      this.filteredProducts = this.products;
+    } else {
+      this.filteredProducts = this.products.filter(product => product.category === category);
+    }
+  }
+
+  sortProducts(sortBy: string): void {
+    this.selectedSort = sortBy;
+    switch (sortBy) {
+      case 'price-low':
+        this.filteredProducts.sort((a, b) => a.price - b.price);
+        break;
+      case 'price-high':
+        this.filteredProducts.sort((a, b) => b.price - a.price);
+        break;
+      case 'newest':
+        // TODO: Implement newest sort when we have dates
+        break;
+      default:
+        // Featured sort (default)
+        break;
+    }
+  }
+
+  addToCart(product: Product): void {
+    this.cartService.addToCart(product);
   }
 } 

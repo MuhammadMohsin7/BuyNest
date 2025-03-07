@@ -1,18 +1,12 @@
 <!-- Hero Section -->
-<section class="hero">
-  <div class="hero__container">
-    <div class="hero__content">
-      <h1 class="hero__title">Welcome to Our Store</h1>
-      <p class="hero__subtitle">Discover amazing products at great prices</p>
-      <a (click)="navigateTo('/products')" class="hero__button">
-        Shop Now
-        <i class="fas fa-arrow-right"></i>
-      </a>
-    </div>
-    <div class="hero__image">
-      <img src="assets/images/hero-image.jpg" alt="Hero Image">
-    </div>
+<section class="hero-section">
+  <div class="hero-content">
+    <h1>Welcome to Our Store</h1>
+    <p>Discover amazing products at great prices</p>
+    <button class="cta-button" (click)="navigateToProducts()">Shop Now</button>
   </div>
+  <div class="hero-overlay"></div>
+  <img [src]="heroImage" alt="Hero Banner" class="hero-image">
 </section>
 
 <!-- Featured Products Section -->
@@ -135,12 +129,14 @@
 </section>
 
 <!-- Brands Section -->
-<section class="brands">
-  <div class="brands__container">
-    <h2 class="section-title">Our Trusted Brands</h2>
-    <div class="brands__grid">
-      <div class="brands__item" *ngFor="let brand of brands">
-        <img [src]="brand.logo" [alt]="brand.name">
+<section class="brands-section">
+  <div class="container">
+    <h2>Our Trusted Brands</h2>
+    <div class="brands-grid">
+      <div class="brand-card" *ngFor="let brand of brands">
+        <img [src]="brand.logo" [alt]="brand.name" class="brand-logo">
+        <h3>{{ brand.name }}</h3>
+        <p>{{ brand.description }}</p>
       </div>
     </div>
   </div>
